@@ -39,10 +39,11 @@ export class AuthService {
     }
 
     async generateToken(user: any) {
+        const payload = { sub: user.id, email: user.email, role: user.role };
         // Token generation logic goes here
         // This is a placeholder. You should implement JWT or any other token generation logic.
         return {
-            access_token:this.jwtService.sign(user)
+            access_token:this.jwtService.sign(payload)
         }
 
     }

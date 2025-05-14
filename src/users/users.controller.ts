@@ -23,10 +23,10 @@ export class UsersController {
     @Get('me')
     async getMe(@Req() req: Request) { // Request interface  güncellemeniz gerekiyor
         const user = req.user;
-        // if (!user || !user.id) {
-        //     throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
-        // }
-        return this.usersService.getUserById(user.id || 1);
+        if (!req.user || !req.user.id) {
+            throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
+        }
+        return this.usersService.getUserById(Number(user.id));
     }
     @UseGuards(TokenGuard)
     @Get('check-header')
